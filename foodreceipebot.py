@@ -3,10 +3,14 @@ import os
 from aiogram import Bot, Dispatcher, executor, types
 import openai
 import sys
+import logging
 
 load_dotenv()
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 openai.api_key = os.getenv("OPENAI_API_KEY") 
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
 class Reference:
     '''
