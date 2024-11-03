@@ -77,8 +77,8 @@ async def helper(message: types.Message):
     response = openai.ChatCompletion.create(
         model = model_name,
         messages = [
-            {"role":"system","content":prompt},
-            {"role":"assistant","content":reference.response},
+            {"role":"system","content":prompt}, # for prompt
+            {"role":"assistant","content":reference.response},# assistant
             {"role": "user", "content": message.text} #our query 
         ]
     )
