@@ -1,9 +1,10 @@
 name: Run Telegram Bot
 
 on:
+  workflow_dispatch:  # Manually trigger workflow, as it is continuous
   push:
     branches:
-      - main  # Change this to your main branch name if it's different
+      - main
 
 jobs:
   run-bot:
@@ -16,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.11'  # Specify your Python version here
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
@@ -25,7 +26,9 @@ jobs:
 
       - name: Run the Telegram Bot
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}  # Add your Telegram bot token to GitHub secrets
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Add your OpenAI API key to GitHub secrets
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          python foodreceipebot.py
+          while true; do
+            python foodreceipebot.py || sleep 10  # Restart after crash, with a delay
+          done
